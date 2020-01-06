@@ -2,6 +2,7 @@ const express = require('express');
 const massive = require('massive');
 
 const users = require('./controllers/users');
+const posts = require('./controllers/posts');
 
 massive({
   host: 'localhost',
@@ -22,6 +23,9 @@ massive({
     app.get('/api/users', users.userList);
     app.get('/api/users/:id', users.getUserById);
     app.get('/api/users/:id/profile', users.getUserProfile);
+
+    //POSTS
+    app.post('/api/post', posts.createPost);
 
     const PORT = 3002;
     app.listen(PORT, () => {
