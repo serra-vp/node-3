@@ -24,6 +24,7 @@ massive({
     app.get('/api/users', users.userList); //list all users
     app.get('/api/users/:id', users.getUserById); //get user account by id
     app.get('/api/users/:id/profile', users.getUserProfile); //get user profile
+    app.post('/api/login', users.login); //login user
 
     //POSTS
     app.post('/api/posts', posts.createPost); //create post
