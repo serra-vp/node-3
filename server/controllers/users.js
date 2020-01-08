@@ -11,8 +11,15 @@ module.exports = {
       .hash(password)
       .then( hash => {
         return db.users.insert({
-          email,
-          password: hash
+          email, 
+          password: hash, 
+          user_profiles: [{
+            userId: undefined,
+            about: null,
+            thumbnail: null
+          }]
+        },{
+          deepInsert: true,
         },{
           fields: ['id', 'email']
         });
@@ -21,24 +28,6 @@ module.exports = {
         const token = jwt.sign({id: user.id}, secret);
         res.status(201).send({ ...user, token});
       })
-      .catch( error => {
-        console.error(error);
-        res.status(500).end();
-      })
-
-    db.users
-      .insert({
-        email, 
-        password, 
-        user_profiles: [{
-          userId: undefined,
-          about: null,
-          thumbnail: null
-        }]
-      }, {
-        deepInsert: true,
-      })
-      .then( user => res.status(201).send(user))
       .catch( error => {
         console.error(error);
         res.status(500).end();
